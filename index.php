@@ -1,7 +1,8 @@
 <?php
-    
-spl_autoload_register(function($className){ // самозарежда всичко,
-   require_once $className . '.php';              // което ни потр€бва
+
+// automatically loads classes
+spl_autoload_register(function($className){
+   require_once $className . '.php';
 });
 
 use libs\User;
