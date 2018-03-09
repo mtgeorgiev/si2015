@@ -14,8 +14,8 @@ class Db
         $host = $config['db']['host'];
         $db   = $config['db']['name'];
         $user = $config['db']['user'];
-        $pass = $config['db']['password'];;
-        $charset = $config['db']['charset'];;
+        $pass = $config['db']['password'];
+        $charset = $config['db']['charset'];
 
         $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
         $opt = [
