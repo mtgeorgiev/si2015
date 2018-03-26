@@ -1,9 +1,7 @@
 <?php
 
-// automatically loads classes
-spl_autoload_register(function($className){
-   require_once $className . '.php';
-});
+require_once "libs/Init.php";
+Init::_init();
 
 use libs\User;
 
@@ -17,4 +15,4 @@ var_dump(User::fetchAll());
 
 ?>
 
-<a></a>
+<a>asdfasdf</a>

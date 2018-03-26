@@ -9,13 +9,11 @@ class Db
 
     public function __construct()
     {
-        $config = parse_ini_file('config/config.ini', true);
-        
-        $host = $config['db']['host'];
-        $db   = $config['db']['name'];
-        $user = $config['db']['user'];
-        $pass = $config['db']['password'];
-        $charset = $config['db']['charset'];
+        $host = CONFIG['db']['host'];
+        $db   = CONFIG['db']['name'];
+        $user = CONFIG['db']['user'];
+        $pass = CONFIG['db']['password'];
+        $charset = CONFIG['db']['charset'];
 
         $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
         $opt = [

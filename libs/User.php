@@ -8,6 +8,7 @@ class User
     
     private $id;
     private $name;
+    private $email;
     private $password;
     private $registeredOn;
     
@@ -25,6 +26,16 @@ class User
     public function setId($id)
     {    
         $this->id = $id;
+    }
+    
+    public function getEmail()
+    {
+        return $this->email;
+    }
+    
+    public function setEmail($email)
+    {
+        $this->email = $email;
     }
     
     public function registeredOn()
@@ -45,10 +56,10 @@ class User
             $stmt = (new Db())->getConn()->prepare("SELECT * FROM `users` WHERE id = ?");
             $result = $stmt->execute([$this->id]);
         }
-        elseif ($this->name)
+        elseif ($this->email)
         {
-            $stmt = (new Db())->getConn()->prepare("SELECT * FROM `users` WHERE name = ?");
-            $result = $stmt->execute([$this->name]);
+            $stmt = (new Db())->getConn()->prepare("SELECT * FROM `users` WHERE email = ?");
+            $result = $stmt->execute([$this->email]);
         }
         else
         {
@@ -59,13 +70,24 @@ class User
         
         $this->id           = $dbUser['id'];
         $this->name         = $dbUser['name'];
+        $this->email        = $dbUser['email'];
         $this->registeredOn = $dbUser['name'];
     }
     
     public function insert()
     {
-        $stmt = (new Db())->getConn()->prepare("INSERT INTO `users` (name, password) VALUES (?, ?) ");
-        return $stmt->execute([$this->name, $this->password]);
+        $existingUser = new User('');
+        $existingUser->setEmail($this->email);
+        $existingUser->load();
+        
+        if ($existingUser->id)
+        {
+            // user exists
+            return false;
+        }
+        
+        $stmt = (new Db())->getConn()->prepare("INSERT INTO `users` (name, email, password) VALUES (?, ?, ?) ");
+        return $stmt->execute([$this->name, $this->email, $this->password]);
     }
     
     public static function fetchAll()
