@@ -1,4 +1,5 @@
 <?php // file libs/User.php
+declare(strict_types=1);
 namespace libs;
 
 use libs\Db;
@@ -12,10 +13,13 @@ class User
     private $password;
     private $registeredOn;
     
-    public function __construct($name, $password = null)
+    public function __construct(string $name, string $password = null)
     {
         $this->name = $name;
-        $this->password = hash('sha256', $password);
+        if ($password)
+        {
+            $this->password = hash('sha256', $password);
+        }
     }
     
     public function getId()
@@ -48,7 +52,7 @@ class User
         $this->registeredOn = $registeredOn;
     }
     
-    public function load()
+    public function load() :bool
     {
         $stmt = [];
         if ($this->id)
@@ -67,11 +71,13 @@ class User
         }
         
         $dbUser = $stmt->fetch();
-        
+
         $this->id           = $dbUser['id'];
         $this->name         = $dbUser['name'];
         $this->email        = $dbUser['email'];
         $this->registeredOn = $dbUser['name'];
+        
+        return !!$dbUser;
     }
     
     public function insert()

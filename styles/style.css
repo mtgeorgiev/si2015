@@ -1,0 +1,29 @@
+body {
+    font-family: Verdana;
+}
+input {
+    border-color: grey;
+}
+input:hover {
+    border-color: yellow;
+}
+
+/*
+.input_container {
+    background-color: blue !important;
+    display: inline;
+}
+.input_container.c1 {
+    background-color: green;
+}
+#name {
+	background-color: red;
+}
+*/
+.input_container:nth-child(2n+4) {
+    background-color: red;
+}
+
+.error-message {
+    color: red;
+}
