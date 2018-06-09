@@ -4,11 +4,7 @@ const validations = {
     * @description checks if the login form is correctly filled with data
     * @returns {array} empty if no errors
     */
-    isLoginValid: () => {
-        const formData = {
-            email: document.querySelector('input[name="email"]').value,
-            password: document.querySelector('input[name="password"]').value,
-        };
+    isLoginValid: (formData) => {
     
         let errors = {};
         if (!formData.email) {
@@ -49,12 +45,29 @@ const validations = {
 
 const listeners = {
     loginSubmitted: event => {
-        let loginErros = validations.isLoginValid();
+        event.preventDefault();
+    
+        const formData = {
+            email: document.querySelector('input[name="email"]').value,
+            password: document.querySelector('input[name="password"]').value,
+        };
+        
+        let loginErros = validations.isLoginValid(formData);
     
         if (Object.keys(loginErros).length) {
             validations.showLoginErrors(loginErros);
-            event.preventDefault();
         }
+        
+        let myHeaders = new Headers();
+        // myHeaders.append('Accept', 'application/json');
+        myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
+        
+        let body = new FormData();
+        body.append('username', 'Chris');
+        
+        fetch(document.querySelector('#login_form').action, { method: 'post', headers: myHeaders, body: body })
+            .then(response => response.json())
+            .then(result => console.log(result));
     }
 };
 

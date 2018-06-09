@@ -5,19 +5,21 @@ Init::_init(true);
 
 use libs\User;
 
-$user = new User('', $_POST['password']);
-$user->setEmail($_POST['email']);
+$postData = json_decode(file_get_contents("php://input"), true);
+
+$user = new User('', $postData['password']);
+$user->setEmail($postData['email']);
 
 $exists = $user->load();
 
 if ($exists)
 {
     $_SESSION['id'] = $user->getId();
-    header('Location: ../index.php');
+    echo json_encode(['success' => true]);
 }
 else
 {
-    header('Location: ../login.php?exists=0');
+    echo json_encode(['success' => false]);
 }
 
 
