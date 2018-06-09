@@ -52,6 +52,16 @@ class User
         $this->registeredOn = $registeredOn;
     }
     
+    public function getName()
+    {
+        return $this->name;
+    }
+    
+    public function setName($name)
+    {    
+        $this->name = $name;
+    }
+    
     public function load() :bool
     {
         $stmt = [];

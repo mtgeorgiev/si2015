@@ -22,6 +22,9 @@ const validations = {
         return errors;
    },
    showLoginErrors: (errors) => {
+    
+    validations.clearErrors();
+    
     for (let inputName in errors) {
         const errorEl = document.createElement('span');
         errorEl.textContent = errors[inputName];
@@ -32,6 +35,12 @@ const validations = {
     }
    
     
+   },
+   
+   clearErrors: () => {
+        document.querySelectorAll('form .error-message').forEach(errorEl => {
+           errorEl.parentElement.removeChild(errorEl);
+        });
    },
    registrationForm: () => {
       console.log(2);

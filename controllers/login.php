@@ -12,6 +12,7 @@ $exists = $user->load();
 
 if ($exists)
 {
+    $_SESSION['id'] = $user->getId();
     header('Location: ../index.php');
 }
 else

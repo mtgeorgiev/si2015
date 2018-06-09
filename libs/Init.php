@@ -9,6 +9,7 @@ class Init
     */
     public static function _init(bool $isController = false)
     {
+        session_start();
         require_once 'Config.php';
         Config::_init($isController);
     
